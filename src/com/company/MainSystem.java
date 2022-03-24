@@ -229,12 +229,90 @@ public class MainSystem implements EnrolmentManager {
             System.out.println("Successfully added");
             System.out.println(newRecord.toString());
         }
-
     }
 
-    public static void getOne() {}
+    public static void getOne() {
+        Student firstExpr = null;
+        Course secondExpr = null;
 
-    public static void getAllRecords() {}
+        //Starting to print out all students' names and IDs for user to choose from
+        System.out.println("List of available students:");
+        for(Student student : studentLists) {
+            System.out.println(student.getSid() + " " + student.getSname());
+        }
+
+        System.out.print("Whose ID do you want to find?: ");
+        String studentID = input.nextLine();
+        System.out.println();
+
+        for(Student student : studentLists) {
+            if(student.getSid().equalsIgnoreCase(studentID)) {
+                firstExpr = student;
+            }
+        }
+
+        if(firstExpr == null) {
+            System.out.println("No student is found with this ID");
+            return;
+        }
+
+        //Starting to print out all courses' names and IDs
+        System.out.println("List of available courses:");
+        for(Course course : courseList) {
+            System.out.println(course.getCid() + ", " + course.getCname() + ", " + course.getCredit());
+        }
+
+        System.out.print("Which course's ID is this student associated to?: ");
+        String courseID = input.nextLine();
+        System.out.println();
+
+        for(Course course : courseList) {
+            if(course.getCid().equalsIgnoreCase(courseID)) {
+                secondExpr = course;
+            }
+        }
+
+        if(secondExpr == null) {
+            System.out.println("Not any course is found with this ID");
+            return;
+        }
+
+        //Starting to print out all semesters available within a 2-year period
+        System.out.println("List of available semesters: ");
+        for (Object semester : semesterList) {
+            System.out.println(semester);
+        }
+
+        System.out.println("In which semester was this student enrolled?: ");
+        String semester = input.nextLine().toUpperCase();
+        System.out.println();
+
+        if(!semesterList.contains(semester)) {
+            System.out.println("Semester is not available");
+            return;
+        }
+
+        for (StudentEnrolment studentEnrolment : enrolmentList) {
+            if(studentEnrolment.getStudent().getSid().equalsIgnoreCase(studentID) &&
+                    studentEnrolment.getCourse().getCid().equalsIgnoreCase(courseID) &&
+                    studentEnrolment.getSemester().equalsIgnoreCase(semester)) {
+                System.out.println(studentEnrolment.toString());
+            } else {
+                System.out.println("There is no matching enrolment");
+                return;
+            }
+        }
+    }
+
+    public static void getAllRecords() {
+        if(enrolmentList.isEmpty()) {
+            System.out.println("There are currently no records to print");
+        } else {
+            for(StudentEnrolment studentEnrolment : enrolmentList) {
+                System.out.println(studentEnrolment.toString());
+            }
+        }
+    }
 
     public static void update() {}
 
