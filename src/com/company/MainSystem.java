@@ -1,9 +1,6 @@
 package com.company;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -509,7 +506,25 @@ public class MainSystem implements EnrolmentManager {
         }
     };
 
-    public static void saveFile(String defaultLocation) {}
+    public static void saveFile(String filename) {
+        String defaultLocation = "src/com/company/default.csv";
+
+        if(!filename.equals("")) {
+            defaultLocation = filename;
+        }
+
+        try {
+            FileWriter fw = new FileWriter(defaultLocation);
+            for (StudentEnrolment studentEnrolment : enrolmentList) {
+                fw.write(studentEnrolment.toString());
+            }
+            fw.close();
+            System.out.println("Write to file successfully executed");
+        } catch (IOException e) {
+            System.out.println("There is no such file");
+            e.printStackTrace();
+        }
+    }
 
     public static void printRecords() {}
 
