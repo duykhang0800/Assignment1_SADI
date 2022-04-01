@@ -39,7 +39,6 @@ public class StudentEnrolment {
     public String toString() {
         return student.getSid() +
                 ", " + student.getSname() +
-                ", " + student.getSid() +
                 ", " + course.getCid() +
                 ", " + course.getCname() +
                 ", " + course.getCredit() +
