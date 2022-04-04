@@ -12,7 +12,7 @@ public class Student {
     }
 
     public String getSid() {
-        return sid;
+        return sid.replaceAll("\\s+","");
     }
 
     public String getSname() {
@@ -20,15 +20,15 @@ public class Student {
     }
 
     public String getBirthDate() {
-        return birthDate;
+        return birthDate.replaceAll("\\s+","");
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "sid='" + sid + '\'' +
+                "sid='" + sid.replaceAll("\\s+","") + '\'' +
                 ", sname='" + sname + '\'' +
-                ", birthDate='" + birthDate + '\'' +
+                ", birthDate='" + birthDate.replaceAll("\\s+","") + '\'' +
                 '}';
     }
 }

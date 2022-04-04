@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Testing {
-    private static Student student;
-    private static Course course;
+public class UnitTest {
+//    private static Student student;
+//    private static Course course;
     private static MainSystem enrolmentList;
 
     @BeforeEach

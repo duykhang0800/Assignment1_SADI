@@ -104,7 +104,8 @@ public class MainSystem implements EnrolmentManager {
                         courseList.add(new Course(data[3], data[4], data[5]));
                     }
 
-                    enrolmentList.add(new StudentEnrolment(new Student(data[0], data[1], data[2]), new Course(data[3], data[4], data[5]), data[6]));
+                    enrolmentList.add(new StudentEnrolment(new Student(data[0], data[1], data[2]), new Course(data[3],
+                            data[4], data[5]), data[6]));
                 }
                 System.out.println("Successfully retrieved information");
                 eof = true;
@@ -526,7 +527,219 @@ public class MainSystem implements EnrolmentManager {
         }
     }
 
-    public static void printRecords() {}
+    public static void printRecords() {
+        Student student = null;
+        Course course = null;
+        String semester;
+        String choice;
+        int option;
+        ArrayList<StudentEnrolment> listForPrinting = new ArrayList<>();
+
+        System.out.println("Choose one from the following options:");
+        System.out.println("______________________________________");
+        System.out.println("1. Print all courses of 1 student in 1 semester");
+        System.out.println("2. Print all students enrolled in 1 course ");
+        System.out.println("3. Print all available courses in 1 semester");
+
+        //Create a new Scanner to prevent previous inputs from interfering with the switch case
+        Scanner userInput = new Scanner(System.in);
+
+        option = input.nextInt();
+
+        switch (option) {
+            case 1: {
+                System.out.println("List of available students:");
+                for(Student oneStudent : studentLists) {
+                    System.out.println(oneStudent.getSid() + " " + oneStudent.getSname());
+                }
+
+//                String studentID = "S103723";
+//                System.out.println(studentID);
+                System.out.print("Enter the student's ID: ");
+                String studentID = userInput.nextLine();
+//                System.out.println(studentID);
+//                System.out.println();
+
+                for(Student oneStudent : studentLists) {
+                    if(oneStudent.getSid().equalsIgnoreCase(studentID)) {
+                        student = oneStudent;
+                    }
+                }
+
+                if(student == null) {
+                    System.out.println("No student is found with this ID");
+//                    return;
+                }
+
+                System.out.println("List of available semesters: ");
+                for (Object oneSemester : semesterList) {
+                    System.out.println(oneSemester);
+                }
+
+                System.out.println("Enter the semester:");
+                semester = userInput.nextLine().toUpperCase();
+
+                if(!semesterList.contains(semester)) {
+                    System.out.println("Semester is not available");
+                    return;
+                }
+
+                for (StudentEnrolment studentEnrolment : enrolmentList) {
+                    if (studentEnrolment.getStudent().getSid().equalsIgnoreCase(studentID) &&
+                    studentEnrolment.getSemester().equalsIgnoreCase(semester)) {
+                        System.out.println(studentEnrolment.toString());
+                        listForPrinting.add(studentEnrolment);
+                    }
+                }
+
+                System.out.println("Do you want to print all the records?");
+                System.out.println("[Y] Yes");
+                System.out.println("[N] No");
+
+                choice = userInput.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    if (!listForPrinting.isEmpty()) {
+                        String filepath = "src/com/company/print.csv";
+                        try {
+                            FileWriter fw = new FileWriter(filepath);
+                            for (StudentEnrolment oneRecord : listForPrinting) {
+                                fw.write(oneRecord.toString());
+                            }
+                            fw.close();
+                            System.out.println("Records have successfully been printed");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            System.out.println("No such file exist");
+                        }
+                    } else {
+                        System.out.println("There is nothing to print");
+                    }
+                } else if(choice.equalsIgnoreCase("N")) {
+                    System.out.println("The operation will now commence exit");
+                }
+                break;
+            }
+            case 2: {
+                System.out.println("List of available courses:");
+                for(Course oneCourse : courseList) {
+                    System.out.println(oneCourse.getCid() + ", " + oneCourse.getCname() + ", " + oneCourse.getCredit());
+                }
+
+                System.out.println("Enter course's ID:");
+                String courseID = userInput.nextLine();
+                for (Course oneCourse : courseList) {
+                    if (oneCourse.getCid().equalsIgnoreCase(courseID)) {
+                        course = oneCourse;
+                    }
+                }
+
+                if (course == null) {
+                    System.out.println("No such course is available");
+                    return;
+                }
+
+                System.out.println("List of available semesters: ");
+                for (Object oneSemester : semesterList) {
+                    System.out.println(oneSemester);
+                }
+                System.out.println("Enter the semester:");
+                semester = userInput.nextLine().toUpperCase();
+
+                if(!semesterList.contains(semester)) {
+                    System.out.println("Semester is not available");
+                    return;
+                }
+
+                for (StudentEnrolment studentEnrolment : enrolmentList) {
+                    if(studentEnrolment.getCourse().getCid().equalsIgnoreCase(courseID) &&
+                    studentEnrolment.getSemester().equalsIgnoreCase(semester)) {
+                        System.out.println(studentEnrolment.toString());
+                        listForPrinting.add(studentEnrolment);
+                    }
+                }
+
+                System.out.println("Results are retrieved successfully");
+                System.out.println("Do you want to print all the records?");
+                System.out.println("[Y] Yes");
+                System.out.println("[N] No");
+
+                choice = userInput.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    if (!listForPrinting.isEmpty()) {
+                        String filepath = "src/com/company/print.csv";
+                        try {
+                            FileWriter fw = new FileWriter(filepath);
+                            for (StudentEnrolment oneRecord : listForPrinting) {
+                                fw.write(oneRecord.toString());
+                            }
+                            fw.close();
+                            System.out.println("Records have successfully been printed");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            System.out.println("No such file exist");
+                        }
+                    } else {
+                        System.out.println("There is nothing to print");
+                    }
+                } else if(choice.equalsIgnoreCase("N")) {
+                    System.out.println("The operation will now commence exit");
+                }
+                break;
+            }
+
+            case 3: {
+                System.out.println("List of available semesters: ");
+                for (Object oneSemester : semesterList) {
+                    System.out.println(oneSemester);
+                }
+
+                System.out.println("Enter the semester:");
+                semester = userInput.nextLine().toUpperCase();
+
+                if(!semesterList.contains(semester)) {
+                    System.out.println("No such semester available");
+                    return;
+                }
+
+                for (StudentEnrolment studentEnrolment : enrolmentList) {
+                    if(studentEnrolment.getSemester().equalsIgnoreCase(semester)) {
+                        System.out.println(studentEnrolment.toString());
+                        listForPrinting.add(studentEnrolment);
+                    }
+                }
+
+                System.out.println("Do you want to print all the records?");
+                System.out.println("[Y] Yes");
+                System.out.println("[N] No");
+
+                choice = userInput.nextLine();
+
+                if (choice.equalsIgnoreCase("Y")) {
+                    if (!listForPrinting.isEmpty()) {
+                        String filepath = "src/com/company/print.csv";
+                        try {
+                            FileWriter fw = new FileWriter(filepath);
+                            for (StudentEnrolment oneRecord : listForPrinting) {
+                                fw.write(oneRecord.toString());
+                            }
+                            fw.close();
+                            System.out.println("Records have successfully been printed");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            System.out.println("No such file exist");
+                        }
+                    } else {
+                        System.out.println("There is nothing to print");
+                    }
+                } else if(choice.equalsIgnoreCase("N")) {
+                    System.out.println("The operation will now commence exit");
+                }
+                break;
+            }
+        }
+    }
 
     public static void main(String[] args) {
 	// write your code here

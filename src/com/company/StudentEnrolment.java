@@ -28,7 +28,7 @@ public class StudentEnrolment {
     }
 
     public String getSemester() {
-        return semester;
+        return semester.replaceAll("\\s+","");
     }
 
     public void setSemester(String semester) {
@@ -37,11 +37,12 @@ public class StudentEnrolment {
 
     @Override
     public String toString() {
-        return student.getSid() +
+        return student.getSid().replaceAll("\\s+","") +
                 ", " + student.getSname() +
-                ", " + course.getCid() +
+                ", " + student.getBirthDate().replaceAll("\\s+","") +
+                ", " + course.getCid().replaceAll("\\s+","") +
                 ", " + course.getCname() +
-                ", " + course.getCredit() +
-                ", " + semester + "\n" ;
+                ", " + course.getCredit().replaceAll("\\s+","") +
+                ", " + semester.replaceAll("\\s+","") + "\n" ;
     }
 }
