@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
 //    private static Student student;
@@ -86,5 +86,19 @@ public class UnitTest {
 
         newEnrolment.setSemester(semester2);
         assertEquals(semester2, newEnrolment.getSemester());
+    }
+
+    @Test
+    public void testWhenDelete() {
+        Student student = new Student("s3753740", "Tran Duy Khang", "31/08/2000");
+        Course course= new Course("c0001", "Further Programming", "24");
+        String semester = "2022A";
+        StudentEnrolment newEnrolment = new StudentEnrolment(student, course, semester);
+        ArrayList<StudentEnrolment> enrolmentList = new ArrayList<>();
+
+        enrolmentList.add(newEnrolment);
+        enrolmentList.remove(newEnrolment);
+
+        assertTrue(true, String.valueOf(enrolmentList.isEmpty()));
     }
 }
