@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
-//    private static Student student;
-//    private static Course course;
     private static MainSystem enrolmentList;
 
     @BeforeEach
