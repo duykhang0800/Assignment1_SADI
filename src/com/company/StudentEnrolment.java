@@ -28,7 +28,7 @@ public class StudentEnrolment {
     }
 
     public String getSemester() {
-        return semester.replaceAll("\\s+","");
+        return semester.trim();
     }
 
     public void setSemester(String semester) {
