@@ -53,17 +53,10 @@ public class MainSystem implements EnrolmentManager {
             String defaultFile = "src/com/company/default.csv";
 
             System.out.println("Enter the name of file you want to read from");
+            System.out.println("*The expected format of the filepatch is as follow: src/com/company/default.csv*");
+            System.out.println("*This remains true for the rest of the application. Should the filepath be any " +
+                    "different, it may cause an exception*");
             System.out.println("Leave a blank line and hit enter to read the default file");
-
-//            try {
-//                fileName = input.nextLine();
-//            } catch (InputMismatchException e) {
-//                System.out.println("You entered the wrong format!");
-//            }
-
-//            if(!fileName.equals("")) {
-//                defaultFile = fileName;
-//            }
 
             //Reading of the file starts here, split string when encounter a ","
             String line;
@@ -110,7 +103,6 @@ public class MainSystem implements EnrolmentManager {
                 System.out.println("Successfully retrieved information");
                 eof = true;
             } catch (IOException e) {
-//                e.printStackTrace();
                 System.out.println("An error occured. Entered file name does not exist");
                 eof = false;
             }
@@ -309,6 +301,7 @@ public class MainSystem implements EnrolmentManager {
         }
     }
 
+    //This method will allow users to check information about all enrolments
     public static void getAllRecords() {
         if(enrolmentList.isEmpty()) {
             System.out.println("There are currently no records to print");
@@ -319,6 +312,7 @@ public class MainSystem implements EnrolmentManager {
         }
     }
 
+    //This method will allow users to update one single enrolment
     public static void update() {
         Student firstExpr = null;
         Course secondExpr = null;
@@ -450,6 +444,7 @@ public class MainSystem implements EnrolmentManager {
         System.out.println(oneEnrolment.toString());
     }
 
+    //This method will allow users to delete one single enrolment
     public static void delete() {
         StudentEnrolment oneEnrolment = null;
         boolean isFound = false;
@@ -507,6 +502,7 @@ public class MainSystem implements EnrolmentManager {
         }
     };
 
+    //Saving all the changes made by users during runtime
     public static void saveFile(String filename) {
         String defaultLocation = "src/com/company/default.csv";
 
@@ -527,6 +523,7 @@ public class MainSystem implements EnrolmentManager {
         }
     }
 
+    //Print all chosen records to a file
     public static void printRecords() {
         Student student = null;
         Course course = null;
@@ -553,12 +550,8 @@ public class MainSystem implements EnrolmentManager {
                     System.out.println(oneStudent.getSid() + " " + oneStudent.getSname());
                 }
 
-//                String studentID = "S103723";
-//                System.out.println(studentID);
                 System.out.print("Enter the student's ID: ");
                 String studentID = userInput.nextLine();
-//                System.out.println(studentID);
-//                System.out.println();
 
                 for(Student oneStudent : studentLists) {
                     if(oneStudent.getSid().equalsIgnoreCase(studentID)) {
@@ -568,7 +561,7 @@ public class MainSystem implements EnrolmentManager {
 
                 if(student == null) {
                     System.out.println("No student is found with this ID");
-//                    return;
+                    return;
                 }
 
                 System.out.println("List of available semesters: ");

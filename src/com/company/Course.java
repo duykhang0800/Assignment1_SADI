@@ -12,7 +12,7 @@ public class Course {
     }
 
     public String getCid() {
-        return cid.replaceAll("\\s+","");
+        return cid.trim();
     }
 
     public String getCname() {
@@ -20,15 +20,15 @@ public class Course {
     }
 
     public String getCredit() {
-        return credit.replaceAll("\\s+","");
+        return credit.trim();
     }
 
     @Override
     public String toString() {
         return "Course{" +
-                "cid='" + cid.replaceAll("\\s+","") + '\'' +
+                "cid='" + cid.trim() + '\'' +
                 ", cname='" + cname + '\'' +
-                ", credit='" + credit.replaceAll("\\s+","") + '\'' +
+                ", credit='" + credit.trim() + '\'' +
                 '}';
     }
 }

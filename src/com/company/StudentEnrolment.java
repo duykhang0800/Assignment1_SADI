@@ -37,12 +37,12 @@ public class StudentEnrolment {
 
     @Override
     public String toString() {
-        return student.getSid().replaceAll("\\s+","") +
+        return student.getSid().trim() +
                 ", " + student.getSname() +
-                ", " + student.getBirthDate().replaceAll("\\s+","") +
-                ", " + course.getCid().replaceAll("\\s+","") +
+                ", " + student.getBirthDate().trim() +
+                ", " + course.getCid().trim() +
                 ", " + course.getCname() +
-                ", " + course.getCredit().replaceAll("\\s+","") +
-                ", " + semester.replaceAll("\\s+","") + "\n" ;
+                ", " + course.getCredit().trim() +
+                ", " + semester.trim() + "\n" ;
     }
 }
